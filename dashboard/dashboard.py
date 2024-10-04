@@ -1,49 +1,45 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Load the dataset
-hr_df = pd.read_csv('hour.csv')
+# Load the cleaned hour data
+hour_df = pd.read_csv("dashboard/cleaned_hour.csv")
 
-# Data preprocessing
-hr_df['dteday'] = pd.to_datetime(hr_df['dteday'])
-hr_df['month'] = hr_df['dteday'].dt.month_name()
-hr_df['hour'] = hr_df['hr']
+# Title of the dashboard
+st.title("Bike Sharing Data Dashboard")
 
-# Set up the Streamlit app
-st.title("Dashboard Penyewaan Sepeda")
-
-# Sidebar for user input
-st.sidebar.header("Filter")
-selected_month = st.sidebar.selectbox("Pilih Bulan", hr_df['month'].unique())
-selected_hour = st.sidebar.slider("Pilih Jam", min_value=0, max_value=23, value=(0, 23))
-
-# Filter data based on selections
-filtered_data = hr_df[(hr_df['month'] == selected_month) & (hr_df['hour'].between(selected_hour[0], selected_hour[1]))]
-
-# Section: Pengaruh Cuaca terhadap Jumlah Penyewa Sepeda
-st.header("Pengaruh Cuaca terhadap Jumlah Penyewa Sepeda")
-weather_count = filtered_data.groupby('weather_cond')['count'].sum().reset_index()
-st.bar_chart(weather_count.set_index('weather_cond'))
-
-# Section: Pola Penyewaan Sepeda Berdasarkan Jam
-st.header("Pola Penyewaan Sepeda Berdasarkan Jam dalam Sehari")
-hourly_count = filtered_data.groupby('hour')['count'].sum().reset_index()
-st.line_chart(hourly_count.set_index('hour'))
-
-# Section: Pengaruh Kecepatan Angin
-st.header("Pengaruh Kecepatan Angin terhadap Jumlah Penyewa Sepeda")
-windspeed_count = filtered_data.groupby('windspeed')['count'].sum().reset_index()
-st.scatter_chart(windspeed_count.set_index('windspeed'))
-
-# Section: Faktor Signifikan dalam Memprediksi Jumlah Penyewa Sepeda
-st.header("Matriks Korelasi")
-correlation = hr_df.corr()
-plt.figure(figsize=(10, 6))
-sns.heatmap(correlation, annot=True, fmt=".2f", cmap='coolwarm')
+# Visual 1: Impact of Weather on Total Bike Rentals
+st.subheader("Pengaruh Cuaca terhadap Jumlah Total Penyewa Sepeda")
+plt.figure(figsize=(10, 5))
+sns.barplot(x='weathersit', y='cnt', data=hour_df, palette='viridis')
+plt.title("Total Penyewa Sepeda Berdasarkan Situasi Cuaca")
+plt.xlabel("Situasi Cuaca")
+plt.ylabel("Jumlah Penyewa")
 st.pyplot(plt)
 
-# Run the app
-if __name__ == '__main__':
-    st.run()
+# Visual 2: Pattern of Bike Rentals by Hour of the Day
+st.subheader("Pola Penyewaan Sepeda Berdasarkan Jam dalam Sehari")
+plt.figure(figsize=(10, 5))
+sns.lineplot(x='hr', y='cnt', data=hour_df, marker='o', color='blue')
+plt.title("Jumlah Penyewa Sepeda per Jam")
+plt.xlabel("Jam dalam Sehari")
+plt.ylabel("Jumlah Penyewa")
+st.pyplot(plt)
+
+# Visual 3: Influence of Windspeed on Bike Rentals
+st.subheader("Pengaruh Kecepatan Angin terhadap Jumlah Penyewa Sepeda")
+plt.figure(figsize=(10, 5))
+sns.scatterplot(x='windspeed', y='cnt', data=hour_df, alpha=0.5)
+plt.title("Pengaruh Kecepatan Angin terhadap Jumlah Penyewa Sepeda")
+plt.xlabel("Kecepatan Angin")
+plt.ylabel("Jumlah Penyewa")
+st.pyplot(plt)
+
+# Visual 4: Significant Factors in Predicting Bike Rentals
+st.subheader("Faktor Signifikan dalam Memprediksi Jumlah Penyewa Sepeda")
+plt.figure(figsize=(10, 5))
+correlation_matrix = hour_df.corr()
+sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', center=0)
+plt.title("Heatmap Korelasi")
+st.pyplot(plt)
