@@ -1,26 +1,32 @@
-# Proyek Analisis Penyewaan Sepeda
+# Project Analisis Data
 
-Proyek ini bertujuan untuk menganalisis data penyewaan sepeda menggunakan dataset `hour.csv`. Melalui eksplorasi data dan visualisasi interaktif, kita dapat memahami faktor-faktor yang mempengaruhi jumlah penyewa sepeda.
+Repository ini berisi proyek data analytics yang saya kerjakan. Deployment in Streamlit ![Streamlit logo](https://streamlit.io/images/brand/streamlit-mark-color.svg)
 
-## Fitur
+## Deskripsi
+Proyek ini bertujuan untuk menganalisis data pada Bike Sharing Dataset. Tujuan akhirnya submition dicoding Proyek Akhir Analisis Data dengan Python.
 
-- **Dashboard Interaktif**: Menggunakan Streamlit untuk memberikan antarmuka yang mudah digunakan.
-- **Pengaruh Cuaca**: Visualisasi yang menunjukkan pengaruh kondisi cuaca terhadap jumlah penyewa sepeda.
-- **Pola Penyewaan berdasarkan Jam**: Analisis pola penyewaan sepeda sepanjang hari.
-- **Pengaruh Kecepatan Angin**: Visualisasi yang menggambarkan hubungan antara kecepatan angin dan jumlah penyewa.
-- **Matriks Korelasi**: Heatmap untuk menunjukkan korelasi antar variabel dalam dataset.
-- **Eksplorasi Data**: Analisis EDA untuk memberikan wawasan mendalam tentang data.
+## Struktur Direktori
+- `/data`: Direktori ini berisi data yang digunakan dalam proyek, dalam format .csv.
+- `/dashboard`: Direktori ini berisi `dashboard.py` yang digunakan untuk membuat dashboard hasil analisis data.
+- `notebook.ipynb`: File ini digunakan untuk melakukan analisis data.
 
-## Prasyarat
+## Instalasi
 
-Sebelum menjalankan proyek ini, pastikan Anda memiliki Python 3.7 atau yang lebih baru dan menginstal library berikut:
+1. Clone repository ini ke komputer lokal Anda menggunakan perintah berikut:
+    ```shell
+   git clone https://github.com/ariniamsr/bike-sharing.git
+   ```
 
-- pandas
-- streamlit
-- seaborn
-- matplotlib
+2. Pastikan Anda memiliki lingkungan Python yang sesuai dan pustaka-pustaka yang diperlukan. Anda dapat menginstal pustaka-pustaka tersebut dengan menjalankan perintah berikut:
+  ```shell
+  pip install streamlit
+  pip install -r requirements.txt
+  ```
+## Penggunaan
+Masuk ke direktori proyek (Local):
+    ```shell
+    cd Submition_Proyek_Analisis_Data/dashboard/
+    streamlit run dashboard.py
+    ```
+Atau Anda dapat mengunjungi website ini [Project Data Analytics](https://dashboardpy-iosojtwsiysbcwbrnw5klb.streamlit.app/). 
 
-Anda dapat menginstal library yang dibutuhkan dengan menggunakan pip:
-
-```bash
-pip install pandas streamlit seaborn matplotlib
