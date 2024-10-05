@@ -11,11 +11,14 @@ st.title("Bike Sharing Data Dashboard")
 
 # Visual 1: Impact of Weather on Total Bike Rentals
 st.subheader("Pengaruh Cuaca terhadap Jumlah Total Penyewa Sepeda")
-plt.figure(figsize=(10, 5))
-sns.barplot(x='weathersit', y='cnt', data=hour_df, palette='viridis')
-plt.title("Total Penyewa Sepeda Berdasarkan Situasi Cuaca")
-plt.xlabel("Situasi Cuaca")
-plt.ylabel("Jumlah Penyewa")
+weather_rentals = hr_df.groupby('weathersit')['cnt'].sum().reset_index()
+
+plt.figure(figsize=(10, 6))
+sns.barplot(data=weather_rentals, x='weathersit', y='cnt', palette='viridis')
+plt.title('Total Penyewa Sepeda Berdasarkan Kondisi Cuaca')
+plt.xlabel('Kondisi Cuaca')
+plt.ylabel('Jumlah Penyewa Sepeda')
+plt.xticks(rotation=45)
 st.pyplot(plt)
 
 # Visual 2: Pattern of Bike Rentals by Hour of the Day
