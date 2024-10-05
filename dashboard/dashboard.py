@@ -11,7 +11,7 @@ st.title("Bike Sharing Data Dashboard")
 
 # Visual 1: Impact of Weather on Total Bike Rentals
 st.subheader("Pengaruh Cuaca terhadap Jumlah Total Penyewa Sepeda")
-weather_rentals = hr_df.groupby('weathersit')['cnt'].sum().reset_index()
+weather_rentals = hour_df.groupby('weathersit')['cnt'].sum().reset_index()
 
 plt.figure(figsize=(10, 6))
 sns.barplot(data=weather_rentals, x='weathersit', y='cnt', palette='viridis')
